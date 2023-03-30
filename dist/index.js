@@ -1401,7 +1401,7 @@ class MSTeams {
 			...this.header,
 			correlationId: sha,
 			themeColor: color,
-			title: `${sender.login} ${eventName} initialised workflow "${workflow}"`,
+			title: `${head_commit.author.name} pushed commits to ${repository.name}`,
 			summary: repository_link,
 			sections,
 			potentialAction: [
@@ -1421,8 +1421,15 @@ class MSTeams {
 				}
 			]
 		};
-		if (changelog) {
-			payload.text = changelog
+		if (eventName === 'release') {
+			payload.title = `${sender.login} released a new version for ${repository.name}`
+		}
+		if (commits !== null) {
+			var payloadText = ''
+			for (var i = 0; i<commits.length; i++) {
+				payloadText += `${commits[i].author.name} commited: ${commits[i].message}\n`
+			}
+			payload.text = payloadText
 		}
 		if (overwrite !== '') {
 			return merge(

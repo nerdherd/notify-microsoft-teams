@@ -161,7 +161,7 @@ class MSTeams {
 			...this.header,
 			correlationId: sha,
 			themeColor: color,
-			title: `${head_commit.author} pushed commits to ${repository.name}`,
+			title: `${head_commit.author.name} pushed commits to ${repository.name}`,
 			summary: repository_link,
 			sections,
 			potentialAction: [
@@ -185,9 +185,9 @@ class MSTeams {
 			payload.title = `${sender.login} released a new version for ${repository.name}`
 		}
 		if (commits !== null) {
-			payloadText = ''
-			for (i = 0; i<commits.length; i++) {
-				payloadText += `${commits[i].author} commited: ${commits[i].message}\n`
+			var payloadText = ''
+			for (var i = 0; i<commits.length; i++) {
+				payloadText += `${commits[i].author.name} commited: ${commits[i].message}\n`
 			}
 			payload.text = payloadText
 		}
