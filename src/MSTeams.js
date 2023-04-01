@@ -187,7 +187,7 @@ class MSTeams {
 		if (commits !== null) {
 			var payloadText = ''
 			for (var i = 0; i<commits.length; i++) {
-				payloadText += `${commits[i].author.name} commited: ${commits[i].message}\n`
+				payloadText += `${commits[i].author.name} <${commits[i].author.email}> commited: ${commits[i].message}\n\n`
 			}
 			payload.text = payloadText
 		}
