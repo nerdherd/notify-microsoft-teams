@@ -1,3 +1,5 @@
+const execSync = require('child_process').execSync;
+
 module.exports =
 /******/ (function(modules, runtime) { // webpackBootstrap
 /******/ 	"use strict";
@@ -1421,6 +1423,18 @@ class MSTeams {
 				}
 			]
 		};
+
+		if (head_commit !== null) {
+			let branch_list = execSync(`git branch --contains ${head_commit.id}`, { encoding: 'utf-8' });
+			if (branch_list.length > 5) {
+				if (branch_list.slice(0, 5) === "ERROR") {
+					branch_list = ''
+				} else {
+					payload.text = `On branch(es):\n ${branch_list}\n\n`;
+				}
+			}
+		}
+
 		if (eventName === 'release') {
 			payload.title = `${sender.login} released a new version for ${repository.name}`
 		}
@@ -1429,7 +1443,7 @@ class MSTeams {
 			for (var i = 0; i<commits.length; i++) {
 				payloadText += `${commits[i].author.name} <${commits[i].author.email}> commited at ${commits[i].timestamp}: ${commits[i].message}\n\n`
 			}
-			payload.text = payloadText
+			payload.text += payloadText
 		}
 		if (overwrite !== '') {
 			return merge(
