@@ -191,7 +191,12 @@ class MSTeams {
 				if (branch_list.slice(0, 5) === "ERROR") {
 					branch_list = ''
 				} else {
-					payload.text = `On branch(es):${branch_list}\n \n \n`;
+					let branch_count = (branch_list.match("/*/g") || []).length;
+					if (branch_count > 1) {
+					  payload.text = `On branch(es):\n${branch_list}\n \n \n`;
+					} else {
+					  payload.text = `On branch:\n${branch_list}\n \n \n`;
+					}
 				}
 			}
 		}
