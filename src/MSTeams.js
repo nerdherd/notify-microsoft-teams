@@ -205,6 +205,7 @@ class MSTeams {
 			for (var i = 0; i<commits.length; i++) {
 				payloadText += `${commits[i].author.name} <${commits[i].author.email}> commited at (${commits[i].timestamp}): ${commits[i].message}\n\n`
 			}
+			payload.text += "\nChangelog:\n"
 			payload.text += payloadText
 		}
 		if (overwrite !== '') {
