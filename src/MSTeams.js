@@ -191,7 +191,7 @@ class MSTeams {
 				if (branch_list.slice(0, 5) === "ERROR") {
 					branch_list = ''
 				} else {
-					payload.text = `On branch(es):\n ${branch_list}\n\n`;
+					payload.text = `On branch(es):${branch_list}\n \n \n`;
 				}
 			}
 		}
